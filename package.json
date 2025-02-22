@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "firebase-tools": "^13.31.2"
+    "@types/jest": "^29.5.14",
+    "firebase-tools": "^13.31.2",
+    "ts-jest": "^29.2.5"
   }
 }
