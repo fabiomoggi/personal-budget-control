@@ -2,4 +2,4 @@
 
 Personal budget control
 
-test
+SonarQube integrated
