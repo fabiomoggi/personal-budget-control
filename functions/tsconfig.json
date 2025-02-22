@@ -13,5 +13,5 @@
   "compileOnSave": true,
   "include": [
     "src"
-  ]
+, "test/index.test.ts"  ]
 }
