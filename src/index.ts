@@ -1,2 +1,4 @@
-const password = "123456";
+/// <reference types="node" />
+
+const password = process.env.PASSWORD;
 console.log("Password: ", password);
