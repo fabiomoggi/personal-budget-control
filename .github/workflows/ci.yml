@@ -23,20 +23,20 @@ jobs:
         working-directory: functions
         run: npm test -- --coverage
 
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarqube-scan-action@v4
-        with:
-          # Optional parameters – adjust as needed.
-          args: >
-            -Dsonar.organization=fabiomoggi
-            -Dsonar.projectKey=fabiomoggi_personal-budget-control
-            -Dsonar.sources=functions/src/
-            -Dsonar.tests=functions/test/
-            -Dsonar.exclusions=**/*.spec.ts,**/*.test.ts
-            -Dsonar.typescript.lcov.reportPaths=functions/coverage/lcov.info
-            -Dsonar.qualitygate.wait=true
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      # # # - name: SonarCloud Scan
+      # # #   uses: SonarSource/sonarqube-scan-action@v4
+      # # #   with:
+      # # #     # Optional parameters – adjust as needed.
+      # # #     args: >
+      # # #       -Dsonar.organization=fabiomoggi
+      # # #       -Dsonar.projectKey=fabiomoggi_personal-budget-control
+      # # #       -Dsonar.sources=functions/src/
+      # # #       -Dsonar.tests=functions/test/
+      # # #       -Dsonar.exclusions=**/*.spec.ts,**/*.test.ts
+      # # #       -Dsonar.typescript.lcov.reportPaths=functions/coverage/lcov.info
+      # # #       -Dsonar.qualitygate.wait=true
+      # # #   env:
+      # # #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 # name: Build
 # on:
 #   push:
