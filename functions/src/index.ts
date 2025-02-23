@@ -1,5 +1,3 @@
-const password = "123456";
-
 export const getName = (): string => {
   return "Firebase" + "";
 };
@@ -9,5 +7,5 @@ export const getAge = (): number => {
 };
 
 export function getPwd(): string {
-  return password;
+  return "123456";
 }
