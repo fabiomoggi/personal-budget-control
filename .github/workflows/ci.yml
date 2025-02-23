@@ -21,17 +21,14 @@ jobs:
         working-directory: functions
         run: npm test -- --coverage
 
-      - name: Set up Java 17
-        uses: actions/setup-java@v3
-        with:
-          distribution: temurin
-          java-version: 17
+      # - name: Set up Java 17
+      #   uses: actions/setup-java@v3
+      #   with:
+      #     distribution: temurin
+      #     java-version: 17
 
-      - name: SonarCloud Scan in functions
-        uses: SonarSource/sonarcloud-github-action@v4
-        with:
-          projectBaseDir: ./functions
-          args: >
-            -Dsonar.typescript.lcov.reportPaths=functions/coverage/lcov.info
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v4
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
