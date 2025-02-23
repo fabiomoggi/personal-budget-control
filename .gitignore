@@ -2,3 +2,4 @@ node_modules/
 lib/
 *.log.*
 *.log
+functions/coverage/lcov-report/
