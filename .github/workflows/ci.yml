@@ -21,6 +21,12 @@ jobs:
         working-directory: functions
         run: npm test -- --coverage
 
+      - name: Set up Java 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+
       - name: SonarCloud Scan in functions
         uses: SonarSource/sonarcloud-github-action@v4
         with:
