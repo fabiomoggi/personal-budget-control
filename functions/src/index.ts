@@ -12,3 +12,11 @@ export const getOneHundred = (): number => {
 export const getRandom = (): string => {
   return "random";
 };
+
+export const getRandomTwo = (): string => {
+  return "Two";
+};
+
+export const getRandomThree = (): string => {
+  return "Three";
+};
