@@ -13,18 +13,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install dependencies
+      - name: Install dependencies in functions
         working-directory: functions
         run: npm install
 
-      - name: Run tests with coverage
+      - name: Run tests with coverage in functions
         working-directory: functions
         run: npm test -- --coverage
 
-      - name: SonarCloud Scan
+      - name: SonarCloud Scan in functions
+        working-directory: functions
         uses: SonarSource/sonarcloud-github-action@v1
         with:
           args: >
-            -Dsonar.typescript.lcov.reportPaths=functions/coverage/lcov.info
+            -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
