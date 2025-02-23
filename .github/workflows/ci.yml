@@ -14,12 +14,21 @@ jobs:
         with:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
 
+      - name: Install dependencies in root
+        run: npm install
+
+      - name: Install dependencies in functions
+        working-directory: functions
+        run: npm install
+
       - name: Run tests with coverage in functions
         working-directory: functions
         run: npm test -- --coverage
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v4
+        with:
+          args: -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
