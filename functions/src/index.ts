@@ -5,7 +5,3 @@ export const getName = (): string => {
 export const getAge = (): number => {
   return 1;
 };
-
-export function getPwd(): string {
-  return "123456";
-}
