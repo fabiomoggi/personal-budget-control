@@ -4,6 +4,6 @@ module.exports = {
   testMatch: ['**/test/**/*.test.ts'],
   collectCoverage: true,
   coverageDirectory: 'coverage',
-  coverageReporters: ['lcov']
+  coverageReporters: ['lcov', 'text-summary']
   //setupFilesAfterEnv: ['<rootDir>/setupTests.js']
 };
