@@ -1,33 +1,53 @@
-name: CI
-
+name: Build
 on:
   push:
-    branches: ["main"]
+    branches:
+      - main
   pull_request:
-    branches: ["main"]
-
+    types: [opened, synchronize, reopened]
 jobs:
-  build-and-scan:
+  sonarqube:
+    name: SonarQube
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-
-      - name: Install dependencies in functions
-        working-directory: functions
-        run: npm install
-
-      - name: Run tests with coverage in functions
-        working-directory: functions
-        run: npm test -- --coverage
-
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v4
-        with:
-          args: -Dsonar.organization=fabiomoggi
-            -Dsonar.projectKey=fabiomoggi_personal-budget-control
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+# name: CI
+
+# on:
+#   push:
+#     branches: ["main"]
+#   pull_request:
+#     branches: ["main"]
+
+# jobs:
+#   build-and-scan:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+#         with:
+#           fetch-depth: 0
+
+#       - name: Install dependencies in functions
+#         working-directory: functions
+#         run: npm install
+
+#       - name: Run tests with coverage in functions
+#         working-directory: functions
+#         run: npm test -- --coverage
+
+#       - name: SonarQube Scan
+#         uses: SonarSource/sonarqube-scan-action@v4
+#         with:
+#           args: -Dsonar.organization=fabiomoggi
+#             -Dsonar.projectKey=fabiomoggi_personal-budget-control
+#         env:
+#           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
