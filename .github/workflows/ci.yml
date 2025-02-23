@@ -30,7 +30,7 @@ jobs:
       - name: SonarCloud Scan in functions
         uses: SonarSource/sonarcloud-github-action@v4
         with:
-          projectBaseDir: functions
+          projectBaseDir: ./functions
           args: >
             -Dsonar.typescript.lcov.reportPaths=functions/coverage/lcov.info
         env:
