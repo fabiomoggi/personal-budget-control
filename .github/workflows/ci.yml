@@ -22,10 +22,10 @@ jobs:
         run: npm test -- --coverage
 
       - name: SonarCloud Scan in functions
-        working-directory: functions
         uses: SonarSource/sonarcloud-github-action@v1
         with:
           args: >
-            -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.projectBaseDir=functions 
+            -Dsonar.typescript.lcov.reportPaths=functions/coverage/lcov.info
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
