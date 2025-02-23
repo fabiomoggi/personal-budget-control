@@ -3,5 +3,5 @@ export const getName = (): string => {
 };
 
 export const getAge = (): number => {
-  return 1;
+  return 38;
 };
