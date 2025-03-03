@@ -16,7 +16,4 @@ describe("getOneHundred", () => {
   it("should return 100", async () => {
     expect(getOneHundred()).toBe(100);
   });
-  it("should return one hundred", async () => {
-    expect(getOneHundred()).toBe(100);
-  });
 });
