@@ -15,15 +15,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install dependencies in functions
+      - name: Install dependencies
         working-directory: functions
         run: npm install
 
-      - name: Run tests with coverage in functions
+      - name: Run tests with Jest
         working-directory: functions
         run: npm test -- --coverage
 
-      - name: SonarCloud Scan
+      - name: Run SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@v4
         with:
           # Optional parameters – adjust as needed.
