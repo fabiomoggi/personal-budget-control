@@ -8,6 +8,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      GOOGLE_APPLICATION_CREDENTIALS: google-application-credentials.json
 
     steps:
       - name: Checkout Repository
@@ -29,22 +31,6 @@ jobs:
       - name: Prepare Google Application Credentials
         shell: bash
         run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" | base64 --decode > "google-application-credentials.json"
-
-      - name: Use Firebase Personal Budget Control Project
-        shell: bash
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: google-application-credentials.json
-        run: firebase use personal-budget-control-8dc91 --debug
-
-      - name: Authenticate with Service Account
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: google-application-credentials.json
-        run: gcloud auth activate-service-account --key-file=google-application-credentials.json
-
-      - name: List Firebase projects
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: google-application-credentials.json
-        run: firebase projects:list
 
       - name: Deploy Firebase functions
         shell: bash
