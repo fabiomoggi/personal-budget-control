@@ -82,9 +82,6 @@ jobs:
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
-      - name: Enable Debug Mode
-        run: firebase functions:config:set debug.mode=true
-
       - name: Configure Firebase Service Account
         run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > $HOME/firebase-service-account.json
 
