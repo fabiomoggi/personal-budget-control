@@ -1,4 +1,4 @@
-import { getName, getAge } from "../src/index";
+import { getName, getAge, helloWorld } from "../src/index";
 
 describe("getName", () => {
   it("should return Firebase value", async () => {
@@ -12,8 +12,8 @@ describe("getAge", () => {
   });
 });
 
-// describe("getOneHundred", () => {
-//   it("should return 100", async () => {
-//     expect(getOneHundred()).toBe(100);
-//   });
-// });
+describr("helloWorld", () => {
+  it("should return Hello, my fucking world with SONAR QUBE!", async () => {
+    expect(helloWorld()).toBe("Hello, my fucking world with SONAR QUBE!");
+  });
+}

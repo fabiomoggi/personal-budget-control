@@ -6,11 +6,6 @@ export const helloWorld = onRequest((req, res) => {
   res.send("Hello, my fucking world with SONAR QUBE!");
 });
 
-export const helloWorld2 = onRequest((req, res) => {
-  logger.info("Hello logs!", { structuredData: true });
-  res.send("Hello, my fucking world with SONAR QUBE!");
-});
-
 export const getName = (): string => {
   return "Firebase" + "";
 };
