@@ -83,5 +83,5 @@ jobs:
 
       - name: Deploy to Firebase Functions
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: $HOME/firebase-service-account.json
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
         run: firebase deploy --only functions
