@@ -3,7 +3,7 @@ import { logger } from "firebase-functions";
 
 export const helloWorld = onRequest((req, res) => {
   logger.info("Hello logs!", { structuredData: true });
-  res.send("Hello, my fucking world!");
+  res.send("Hello, my fucking world with SONAR QUBE!");
 });
 
 export const getName = (): string => {
