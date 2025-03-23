@@ -37,8 +37,7 @@ jobs:
         shell: bash
         env:
           GOOGLE_APPLICATION_CREDENTIALS: google-application-credentials.json
-        run: |
-          firebase use personal-budget-control-8dc91 --debug
+        run: firebase use personal-budget-control-8dc91 --debug
 
       - name: Deploy Firebase functions
         shell: bash
