@@ -1,94 +1,56 @@
-name: QA - Build, Scan, and Deploy to Firebase Functions on PR
+name: Deploy to Dev
 
 on:
   push:
-    branches: ["main"]
-  pull_request:
-    branches: ["main"]
-
-permissions:
-  checks: write
-  contents: read
-  pull-requests: write
+    branches:
+      - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Install dependencies in functions folder
-        working-directory: functions
-        run: npm install
-
-      - name: Run Tests with Jest
-        working-directory: functions
-        run: npm test -- --coverage
-
-      - name: Upload Coverage Report
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-report
-          path: functions/coverage/lcov.info
-  scan-sonar-cloud:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Checkout Code (Full History)
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Download Coverage Report
-        uses: actions/download-artifact@v4
-        with:
-          name: coverage-report
-          path: functions/coverage
-
-      - name: Run SonarCloud Scan
-        uses: SonarSource/sonarqube-scan-action@v4
-        with:
-          args: >
-            -Dsonar.organization=fabiomoggi
-            -Dsonar.projectKey=fabiomoggi_personal-budget-control
-            -Dsonar.sources=functions/src/
-            -Dsonar.tests=functions/test/
-            -Dsonar.exclusions=**/*.spec.ts,**/*.test.ts
-            -Dsonar.typescript.lcov.reportPaths=functions/coverage/lcov.info
-            -Dsonar.qualitygate.wait=true
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
   deploy:
-    needs: [build, scan-sonar-cloud]
     runs-on: ubuntu-latest
-    # if github.event_name == 'push'
+    env:
+      GOOGLE_APPLICATION_CREDENTIALS: google-application-credentials.json
+
     steps:
-      - name: Checkout Reposity
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js v18
-        uses: actions/setup-node@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: "18"
-
-      - name: Install Dependencies in Fuctions Folder
-        run: npm install
-        working-directory: functions
-
+          node-version: 16
+      - name: Cache Dependencies
+        uses: actions/cache@v3
+        id: cache-dependencies
+        with:
+          path: |
+            ~/.npm
+            ~/.cache/firebase
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install Dependencies
+        shell: bash
+        working-directory: ./functions
+        run: |
+          npm ci
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
-      - name: Configure Firebase Service Account
-        run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > ${{ runner.home }}/firebase-service-account.json
+      - name: Prepare Google Application Credentials
+        shell: bash
+        run: |
+          echo "${{ secrets.DEV_GOOGLE_APPLICATION_CREDENTIALS }}" | base64 --decode > "google-application-credentials.json"
 
-      - name: Debug - Show First 10 Lines of Service Account JSON
-        run: head -n 10 ${{ runner.home }}/firebase-service-account.json
+      - name: Use Firebase Dev
+        shell: bash
+        run: |
+          firebase use dev --debug
 
-      - name: Deploy to Firebase Functions
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.home }}/firebase-service-account.json
+      - name: Deploy Firebase functions
+        shell: bash
         run: firebase deploy --only functions --non-interactive --debug
+
+      - name: Remove credentials file
+        if: success() || failure()
+        run: |
+          rm google-application-credentials.json
