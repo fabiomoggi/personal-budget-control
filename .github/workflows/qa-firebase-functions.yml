@@ -42,10 +42,13 @@ jobs:
         run: |
           echo "${{ secrets.DEV_GOOGLE_APPLICATION_CREDENTIALS }}" | base64 --decode > "google-application-credentials.json"
 
+      - name: Debug - Show First 10 Lines of Service Account JSON
+        run: head -n 10 ${{ runner.home }}/firebase-service-account.json
+
       - name: Use Firebase Dev
         shell: bash
         run: |
-          firebase use dev --debug
+          firebase use personal-budget-control-8dc91 --debug
 
       - name: Deploy Firebase functions
         shell: bash
