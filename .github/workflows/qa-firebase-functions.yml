@@ -1,4 +1,4 @@
-name: QA - Build, Scan, and Deploy to Firebase Functions on PR
+name: Deploy to QA environment
 
 on:
   push:
