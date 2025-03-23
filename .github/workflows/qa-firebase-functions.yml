@@ -37,9 +37,13 @@ jobs:
         run: firebase use personal-budget-control-8dc91 --debug
 
       - name: Authenticate with Service Account
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: google-application-credentials.json
         run: gcloud auth activate-service-account --key-file=google-application-credentials.json
 
       - name: List Firebase projects
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: google-application-credentials.json
         run: firebase projects:list
 
       - name: Deploy Firebase functions
