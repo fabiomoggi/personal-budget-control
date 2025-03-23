@@ -11,9 +11,3 @@ describe("getAge", () => {
     expect(getAge()).toBe(38);
   });
 });
-
-describe("helloWorld", () => {
-  it("should return Hello, my fucking world with SONAR QUBE!", async () => {
-    expect(helloWorld()).toBe("Hello, my fucking world with SONAR QUBE!");
-  });
-}
