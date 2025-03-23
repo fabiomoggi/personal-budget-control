@@ -1,4 +1,4 @@
-import { getName, getAge, helloWorld } from "../src/index";
+import { getName, getAge } from "../src/index";
 
 describe("getName", () => {
   it("should return Firebase value", async () => {
