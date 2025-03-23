@@ -33,11 +33,16 @@ jobs:
       - name: Debug - Show First 10 Lines of Service Account JSON
         run: head -n 10 google-application-credentials.json
 
-      - name: Use Firebase Dev
+      - name: Use Firebase Personal Budget Control Project
         shell: bash
         env:
           GOOGLE_APPLICATION_CREDENTIALS: google-application-credentials.json
         run: firebase use personal-budget-control-8dc91 --debug
+
+      - name: Authenticate with Service Account
+        run: gcloud auth activate-service-account --key-file=google-application-credentials.json
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: google-application-credentials.json
 
       - name: Deploy Firebase functions
         shell: bash
