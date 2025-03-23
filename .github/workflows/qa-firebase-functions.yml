@@ -33,8 +33,7 @@ jobs:
         with:
           name: coverage-report
           path: functions/coverage/lcov.info
-  scan:
-    name: Run SonarCloud Scan
+  scan-sonar-cloud:
     runs-on: ubuntu-latest
     needs: build
     steps:
