@@ -90,5 +90,5 @@ jobs:
 
       - name: Deploy to Firebase Functions
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: $HOME/firebase-service-account.json
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.home }}/firebase-service-account.json
         run: firebase deploy --only functions --non-interactive --debug
