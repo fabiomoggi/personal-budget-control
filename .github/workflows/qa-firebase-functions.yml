@@ -1,6 +1,15 @@
-name: Test Artifact Upload/Download
+name: QA - Build, Scan, and Deploy to Firebase Functions on PR
 
-on: push
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  checks: write
+  contents: read
+  pull-requests: write
 
 jobs:
   build:
@@ -8,24 +17,71 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Create test file
-        run: echo "Hello World" > test.txt
+      - name: Install dependencies in functions folder
+        working-directory: functions
+        run: npm install
 
-      - name: Upload test artifact
+      - name: Run Tests with Jest
+        working-directory: functions
+        run: npm test -- --coverage
+
+      - name: Upload Coverage Report
         uses: actions/upload-artifact@v4
         with:
-          name: test-artifact
-          path: test.txt
-
-  test:
-    needs: build
+          name: coverage-report
+          path: functions/coverage/lcov.info
+  scan-sonar-cloud:
     runs-on: ubuntu-latest
+    needs: build
     steps:
-      - name: Download test artifact
+      - name: Checkout Code (Full History)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download Coverage Report
         uses: actions/download-artifact@v4
         with:
-          name: test-artifact
-          path: downloaded
-      - name: List downloaded files
-        run: ls downloaded
+          name: coverage-report
+          path: functions/coverage
+
+      - name: Run SonarCloud Scan
+        uses: SonarSource/sonarqube-scan-action@v4
+        with:
+          args: >
+            -Dsonar.organization=fabiomoggi
+            -Dsonar.projectKey=fabiomoggi_personal-budget-control
+            -Dsonar.sources=functions/src/
+            -Dsonar.tests=functions/test/
+            -Dsonar.exclusions=**/*.spec.ts,**/*.test.ts
+            -Dsonar.typescript.lcov.reportPaths=functions/coverage/lcov.info
+            -Dsonar.qualitygate.wait=true
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  deploy:
+    needs: [build, scan-sonar-cloud]
+    runs-on: ubuntu-latest
+    # if github.event_name == 'push'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js v18
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
+
+      - name: Configure Firebase Service Account
+        run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > $HOME/firebase-service-account.json
+
+      - name: Deploy to Firebase Functions
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: $HOME/firebase-service-account.json
+        run: firebase deploy --only functions
