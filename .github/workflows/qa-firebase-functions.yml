@@ -63,7 +63,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   deploy:
-    needs: [build, scan]
+    needs: [build, scan-sonar-cloud]
     runs-on: ubuntu-latest
     # if github.event_name == 'push'
     steps:
