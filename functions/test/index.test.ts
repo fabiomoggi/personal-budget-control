@@ -12,7 +12,7 @@ describe("getAge", () => {
   });
 });
 
-describr("helloWorld", () => {
+describe("helloWorld", () => {
   it("should return Hello, my fucking world with SONAR QUBE!", async () => {
     expect(helloWorld()).toBe("Hello, my fucking world with SONAR QUBE!");
   });
