@@ -31,7 +31,7 @@ jobs:
         run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > "google-application-credentials.json"
 
       - name: Debug - Show First 10 Lines of Service Account JSON
-        run: head -n 10 ${{ runner.home }}/google-application-credentials.json
+        run: head -n 10 google-application-credentials.json
 
       - name: Use Firebase Dev
         shell: bash
