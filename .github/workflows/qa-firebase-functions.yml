@@ -48,6 +48,8 @@ jobs:
 
       - name: Deploy Firebase functions
         shell: bash
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: google-application-credentials.json
         run: firebase deploy --only functions --non-interactive --debug --project personal-budget-control-8dc91
 
       - name: Remove credentials file
