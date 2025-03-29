@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   build-test:
-    name: Build, Test and Upload Coverage Report
+    name: Build & Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
