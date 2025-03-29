@@ -13,3 +13,7 @@ export const getName = (): string => {
 export const getAge = (): number => {
   return 38;
 };
+
+export const getSum = (a: number, b: number): number => {
+  return a + b;
+};
