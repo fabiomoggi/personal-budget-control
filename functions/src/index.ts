@@ -9,3 +9,7 @@ export const getAge = (): number => {
 export const getSum = (a: number, b: number): number => {
   return a + b;
 };
+
+export const getFullName = (): string => {
+  return "Firebase";
+};
