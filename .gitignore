@@ -1,3 +1,4 @@
 functions/coverage/lcob-report/
 node_modules/
 lib/
+sonar-project.properties
