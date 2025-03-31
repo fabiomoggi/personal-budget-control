@@ -13,3 +13,7 @@ export const getSum = (a: number, b: number): number => {
 export const getFullName = (): string => {
   return "Firebase";
 };
+
+export const getFirstName = (): string => {
+  return "frstname";
+};
