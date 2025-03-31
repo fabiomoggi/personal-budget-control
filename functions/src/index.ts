@@ -15,5 +15,5 @@ export const getFullName = (): string => {
 };
 
 export const getFirstName = (): string => {
-  return "frstname";
+  return "frstnaae";
 };
