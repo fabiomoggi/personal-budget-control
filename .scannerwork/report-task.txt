@@ -1,0 +1,7 @@
+organization=fabiomoggi
+projectKey=fabiomoggi_personal-budget-control
+serverUrl=https://sonarcloud.io
+serverVersion=8.0.0.61173
+dashboardUrl=https://sonarcloud.io/dashboard?id=fabiomoggi_personal-budget-control
+ceTaskId=AZXp6h8PmJh7pOD7xprp
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AZXp6h8PmJh7pOD7xprp
