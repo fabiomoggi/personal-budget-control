@@ -23,4 +23,15 @@ describe("helloWorld Cloud Function", () => {
     // Verify that res.send was called with the correct message.
     expect(res.send).toHaveBeenCalledWith("Hello from Firebase!");
   });
+
+  // Alternative scenario: Verify that extra properties in the request object do not affect the output.
+  it('should return "Hello from Firebase!" even when req has extra properties', async () => {
+    const req: any = { extra: "unexpected data" };
+    const res: any = {
+      send: jest.fn(),
+    };
+
+    await myFunctions.helloWorld(req, res);
+    expect(res.send).toHaveBeenCalledWith("Hello from Firebase!");
+  });
 });
