@@ -1,4 +1,4 @@
-import * as myFunctions from "../src/index";
+import * as myFunctions from "../../src/index";
 import functionsTest from "firebase-functions-test";
 
 // Initialize the testing environment

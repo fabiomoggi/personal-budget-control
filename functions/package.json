@@ -11,6 +11,10 @@
     "coverageReporters": [
       "lcov",
       "text"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.ts",
+      "!src/**/*.d.ts"
     ]
   },
   "scripts": {
