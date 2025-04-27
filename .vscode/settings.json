@@ -1,0 +1,6 @@
+{
+    "sonarlint.connectedMode.project": {
+        "connectionId": "fabiomoggi",
+        "projectKey": "fabiomoggi_personal-budget-control"
+    }
+}

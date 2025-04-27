@@ -1,29 +1,34 @@
 import { Uid } from "../common/uid";
-import { Age } from "./vo/age";
 import { FullName } from "./vo/fullname";
 import { Email } from "./vo/email";
+import { Password } from "./vo/password";
 
-export interface UserProfileData {
+export interface UserAccountData {
   uid: string;
   fullName: string;
   email: string;
-  age: number;
+  password: string;
 }
 
-export class UserProfile {
+export class UserAccount {
   constructor(
     public readonly uid: Uid,
     public readonly fullName: FullName,
     public readonly email: Email,
-    public readonly age: Age
+    public readonly password: Password
   ) {}
 
-  static create({ uid, fullName, email, age }: UserProfileData): UserProfile {
-    return new UserProfile(
+  static create({
+    uid,
+    fullName,
+    email,
+    password,
+  }: UserAccountData): UserAccount {
+    return new UserAccount(
       new Uid(uid),
       new FullName(fullName),
       new Email(email),
-      new Age(age)
+      new Password(password)
     );
   }
 }
