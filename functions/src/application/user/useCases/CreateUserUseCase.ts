@@ -1,7 +1,7 @@
 import { UserProfile } from "../../../domain/user/userProfile";
 import { UserProfileRepository } from "../port/UserProfileRepository";
 import { UserAccount } from "../../../domain/user/userAccount";
-import { UserAccountService } from "../port/UserAccountService";
+import { UserAuthService } from "../port/UserAuthService";
 
 export interface CreateUserInput {
   uid: string;
@@ -14,7 +14,7 @@ export interface CreateUserInput {
 export class CreateUserUseCase {
   constructor(
     private readonly userProfileRepository: UserProfileRepository,
-    private readonly userAccountService: UserAccountService
+    private readonly userAuthService: UserAuthService
   ) {}
 
   async execute(input: CreateUserInput): Promise<UserProfile> {
@@ -22,7 +22,7 @@ export class CreateUserUseCase {
     const userAccount = UserAccount.create(input);
 
     await this.userProfileRepository.save(userProfile);
-    await this.userAccountService.create(userAccount);
+    await this.userAuthService.create(userAccount);
 
     return userProfile;
   }

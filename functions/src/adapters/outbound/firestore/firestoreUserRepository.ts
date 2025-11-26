@@ -5,8 +5,12 @@ import { UserProfile } from "../../../domain/user/userProfile";
 // Ensure Firebase Admin is initialized
 if (!admin.apps.length) {
   admin.initializeApp({
-    credential: admin.credential.applicationDefault(),
+    // projectId: "personal-budget-control-8dc91",
+    //credential: admin.credential.applicationDefault(),
   });
+  console.log("Firebase Admin has been initialized.");
+} else {
+  console.log("Firebase Admin already initialized.", admin.apps[0]);
 }
 
 export class FirestoreUserProfileRepository implements UserProfileRepository {
@@ -15,6 +19,7 @@ export class FirestoreUserProfileRepository implements UserProfileRepository {
 
   async save(userProfile: UserProfile): Promise<UserProfile> {
     // Convert the domain object to a plain object suitable for Firestore.
+    console.log("Saving user profile to Firestore:", userProfile);
     await this.collection.doc(userProfile.uid.value).set({
       uid: userProfile.uid.value,
       fullName: userProfile.fullName.value,

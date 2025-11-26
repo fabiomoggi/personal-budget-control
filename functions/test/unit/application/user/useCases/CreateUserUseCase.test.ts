@@ -7,7 +7,7 @@ import {
 import { UserProfile } from "../../../../../src/domain/user/userProfile";
 import { UserAccount } from "../../../../../src/domain/user/userAccount";
 import { UserProfileRepository } from "../../../../../src/application/user/port/UserProfileRepository";
-import { UserAccountService } from "../../../../../src/application/user/port/UserAccountService";
+import { UserAuthService } from "../../../../../src/application/user/port/UserAuthService";
 
 describe("CreateUserUseCase", () => {
   const validInput: CreateUserInput = {
@@ -19,7 +19,7 @@ describe("CreateUserUseCase", () => {
   };
 
   let fakeRepository: jest.Mocked<UserProfileRepository>;
-  let fakeAccountService: jest.Mocked<UserAccountService>;
+  let fakeAccountService: jest.Mocked<UserAuthService>;
   let useCase: CreateUserUseCase;
 
   beforeEach(() => {

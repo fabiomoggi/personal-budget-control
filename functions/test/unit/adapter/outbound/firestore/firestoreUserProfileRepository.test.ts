@@ -1,6 +1,6 @@
 import admin from "firebase-admin";
-import { FirestoreUserProfileRepository } from "../../../../src/adapters/outbound/firestore/firestoreUserRepository";
-import { UserProfile } from "../../../../src/domain/user/userProfile";
+import { FirestoreUserProfileRepository } from "../../../../../src/adapters/outbound/firestore/firestoreUserRepository";
+import { UserProfile } from "../../../../../src/domain/user/userProfile";
 
 // Mock firebase-admin
 jest.mock("firebase-admin", () => {
