@@ -21,12 +21,13 @@
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "serve": "npm run build && firebase emulators:start --only functions",
+    "serve": "npm run build && firebase emulators:start --only functions,auth,firestore",
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
     "test": "jest --detectOpenHandles --forceExit --coverage",
+    "test:integration": "firebase emulators:exec --only firestore,auth \"npm run test\"",
     "test:watch": "jest --watch",
     "sonar": "sonar-scanner -Dsonar.token=$SONAR_TOKEN"
   },

@@ -8,9 +8,9 @@ if (!admin.apps.length) {
     // projectId: "personal-budget-control-8dc91",
     //credential: admin.credential.applicationDefault(),
   });
-  console.log("Firebase Admin has been initialized.");
+  console.log("firestoreUserRepo: Firebase Admin has been initialized.");
 } else {
-  console.log("Firebase Admin already initialized.", admin.apps[0]);
+  console.log("firestoreUserRepo: Firebase Admin already initialized.", admin.apps[0]?.options);
 }
 
 export class FirestoreUserProfileRepository implements UserProfileRepository {

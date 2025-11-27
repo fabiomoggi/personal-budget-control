@@ -8,6 +8,8 @@ import {
   CreateUserInput,
 } from "../../src/application/user/useCases/CreateUserUseCase";
 
+jest.setTimeout(30000);
+
 describe("CreateUserUseCase Integration", () => {
   const profileRepo = new FirestoreUserProfileRepository();
   const authService = new FirebaseUserAuthService();
@@ -25,7 +27,7 @@ describe("CreateUserUseCase Integration", () => {
   afterAll(async () => {
     // Clean up Firestore connections
     await admin.firestore().terminate();
-    console.log("Firestore connection terminated.");
+    console.log("AFTERALL: Firestore connection terminated.");
   });
 
   it("should create a Firebase Auth user and Firestore profile", async () => {

@@ -21,8 +21,8 @@ export const helloWorld = onRequest(async (request, response) => {
     console.log("Firebase Admin initialized in index.js for emulator.");
   }
 
-  const db = admin.firestore();
-  await db.collection("userProfile").doc("testUser").set({ name: "Test User" });
+  //const db = admin.firestore();
+  //await db.collection("userProfile").doc("testUser").set({ name: "Test User" });
 
   response.send("Hello from Firebase!");
 });
